@@ -1,13 +1,16 @@
 # Variables globales
 
 # Modelo de datos seleccionado: A
-# Diccionario de articulos
+# Diccionario de articulos metido dentro de una lista
 articulos = [{"id" : 1, "nombre" : "Ratón", "precio" : 12.5, "stock": 20, "activo": True}]
 # Definir la variable opcion.
 opcion = int
+# Declaramos id producto 1, porque ya hay uno con id 1
 idProducto = 1
-# Funciones
+# Mensaje de error en int y en float
+mensajeError = "Error. El número introducido no es válido."
 
+# Funciones
 # Función de mostrar el menú
 def menu_articulos():
     menu = ["1. Crear artículo", "2. Listar artículos", "3. Buscar artículo", "4. Actualizar artículo", "5. Eliminar un artículo", "6. Alternar activo/inactivo", "7. Salir"]
@@ -15,39 +18,62 @@ def menu_articulos():
         print(entrada)
 
 # Función para generar un id automáticamente
-def generar_id(articulos):
-    articulos = articulos + 1
-    return articulos
+def generar_id(idArticulos):
+    idArticulos = idArticulos + 1
+    return idArticulos
 
 # Función para listar los productos disponibles
-def listar_articulos(articulos, solo_activos=None):
-    for articulo in lista_articulos:
-        print(articulo)
- 
-def buscar_articulo_por_id(articulos, id_busqueda):
+def listar_articulos(listaArticulos, solo_activos=None):
+    indice = 0
+    for articulo in listaArticulos[indice]:
+        for cosa,cosas in articulo.items():
+            print(articulo,cosas)
+        indice = indice + 1
+
+def buscar_articulo_por_id(listaArticulos, id_busqueda):
+    print(listaArticulos)
+def actualizar_articulo(listaArticulos):
     print()
-def actualizar_articulo(articulos):
+def eliminar_articulo(listaArticulos):
     print()
-def eliminar_articulo(articulos):
-    print()
-def alternar_activo(articulos):
-    print()
-def leer_float(mensaje, minimo=None):
-    print()
-def leer_int(mensaje, minimo=None):
+def alternar_activo(listaArticulos):
     print()
 
+def leer_float(mensaje, minimo=None):
+    minimo = float(input("Introduce un precio mayor a 0 (> 0): "))
+    while minimo < 0:
+        print(mensaje)
+        minimo = float(input("Introduce un precio mayor a 0 (> 0): "))
+    return minimo
+
+def leer_int(mensaje, minimo=None):
+    minimo = float(input("Introduce un stock mayor o igual a 0 (=> 0): "))
+    while minimo < 0:
+        print(mensaje)
+        minimo = float(input("Introduce un stock mayor o igual a 0 (=> 0): "))
+    return minimo
+
+# Lógica del código
 while opcion != 7:
     menu_articulos()
+    print(articulos)
     opcion = int(input("Introduce una opción: "))
     match opcion:
         # Crear artículo
         case 1:
             idProducto = generar_id(idProducto)
-            print(idProducto)
+            # articulos = [{"id" : 1, "nombre" : "Ratón", "precio" : 12.5, "stock": 20, "activo": True}]
+            nombre = str(input("Introduce el nombre del producto: "))
+            precio = leer_float(mensajeError)
+            stock = leer_int(mensajeError)
+            if stock == 0:
+                activo = False
+            else:
+                activo = True
+            articulos.append({"id" : idProducto, "Nombre" : nombre, "Precio" : precio, "Stock" : stock, "Activo" : activo})
         # Listar artículos
         case 2:
-            listar_articulos()
+            listar_articulos(articulos)
         # Buscar artículo por id
         case 3:
             print()
@@ -66,24 +92,3 @@ while opcion != 7:
         # Si el usuario mete un número inválido, indicarselo. (Fuera de rango)
         case _:
             print("Número introducido inválido. ")
-
-# Lógica del código
-
-# TO DO: 
-
-# Crear: pedir nombre (str), 
-# precio (float > 0), stock (int ≥ 0). Asignar id único y activo=True.
-
-# Listar: mostrar todos, con opción de filtrar solo activos/inactivos 
-# (puede ser una subopción).
-
-# Buscar por id: mostrar ficha completa o “no encontrado”.
-
-# Actualizar: permitir cambiar nombre/precio/stock de un id existente.
-
-# Eliminar: borrar por id (o, si prefieres, marcar activo=False y 
-# explicar en el menú).
-
-# Alternar activo/inactivo: cambiar el campo activo.
-
-# Validaciones: tipos y rangos. Si un dato no es válido, pedirlo otra vez.

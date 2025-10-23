@@ -2,8 +2,7 @@
 
 # Modelo de datos seleccionado: A
 # Diccionario de articulos
-articulos = {"id" : 1, "nombre" : "Ratón", "precio" : 12.5, "stock": 20, "activo": True}
-lista_articulos = []
+articulos = [{"id" : 1, "nombre" : "Ratón", "precio" : 12.5, "stock": 20, "activo": True}]
 # Definir la variable opcion.
 opcion = int
 idProducto = 1

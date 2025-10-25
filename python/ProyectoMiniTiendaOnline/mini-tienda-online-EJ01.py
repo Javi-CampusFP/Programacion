@@ -94,9 +94,9 @@ def actualizar_articulo(listaArticulos):
             if actualizar.lower() == "nombre":
                 nuevoValor = str(input("Introduce el nombre nuevo: "))
             elif actualizar.lower() == "precio":
-                nuevoValor = leer_float(mensajeError)
+                nuevoValor = leer_float(mensajeError, minimoPrecioStock)
             else:
-                nuevoValor = leer_int(mensajeError)
+                nuevoValor = leer_int(mensajeError, minimoPrecioStock)
 
             # Actualizar el diccionario con el nuevo valor en la posición que le corresponde
             articulo.update({actualizar : nuevoValor})

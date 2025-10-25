@@ -134,7 +134,7 @@ def eliminar_articulo(listaArticulos):
 # Función para alternar entre activo y desactivado X artículo
 def alternar_activo(listaArticulos):
     # Declaramos la variable que necesita un input del usuario con el id
-    idArticulo = int(input("Introduzca el id del artículo a activar: "))
+    idArticulo = int(input("Introduzca el id del artículo a activar / desactivar: "))
     articuloEncontrado = False
     # Recorremos la lista listaArticulos
     for articulo in listaArticulos:

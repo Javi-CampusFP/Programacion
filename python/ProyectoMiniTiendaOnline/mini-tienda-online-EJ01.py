@@ -82,9 +82,9 @@ def actualizar_articulo(listaArticulos):
         print(f"- {articulo}")
     # Elegir la opción a actualizar
     actualizar = str(input("¿Qué desea actualizar?: "))
-    # Declarar si encontramos el artículo o no
+        # Declarar si encontramos el artículo o no
     articuloEncontrado = False
-    # Para artículo en listaArticulos buscar si el valor "id" coincide con la id introducida
+        # Para artículo en listaArticulos buscar si el valor "id" coincide con la id introducida
     for articulo in listaArticulos:
         if articulo["id"] == idArticulo:
             # Si coincide, actualizamos la variable articuloEncontrado para indicar que lo encontramos
@@ -92,16 +92,25 @@ def actualizar_articulo(listaArticulos):
 
             # Actualizar segun lo elegido por el usuario
             if actualizar.lower() == "nombre":
+                # Pedir el nuevo nombre
                 nuevoValor = str(input("Introduce el nombre nuevo: "))
+                # Actualizar el diccionario con el nuevo valor en la posición que le corresponde
+                articulo.update({actualizar.lower() : nuevoValor})
             elif actualizar.lower() == "precio":
+                # Pedir el nuevo precio
                 nuevoValor = leer_float(mensajeError, minimoPrecioStock)
-            else:
+                articulo.update({actualizar.lower() : nuevoValor})
+            elif actualizar.lower() == "stock":
+                # Pedir el nuevo stock
                 nuevoValor = leer_int(mensajeError, minimoPrecioStock)
-
-            # Actualizar el diccionario con el nuevo valor en la posición que le corresponde
-            articulo.update({actualizar : nuevoValor})
-            # Indicarle al usuario que se actualizo correctamente
-            print(f"El valor '{actualizar}' del artículo '{idArticulo}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
+                # Si el nuevo stock es 0, cambiar de "activo" = True a False
+                if nuevoValor == 0:
+                    articulo.update({"activo" : False})
+                articulo.update({actualizar.lower() : nuevoValor})
+            else:
+                print("El valor introducido no fue reconocido por el sistema. Intentálo de nuevo.")
+                # Indicarle al usuario que se actualizo correctamente
+                print(f"El valor '{actualizar}' del artículo '{idArticulo}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
     # Si no se ha encontrado el artículo, el programa lo indica
     if articuloEncontrado == False:
         print(f"El artículo con id {idArticulo} no ha sido encontrado.")

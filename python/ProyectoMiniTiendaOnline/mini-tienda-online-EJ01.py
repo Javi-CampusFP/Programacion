@@ -9,9 +9,10 @@ opcion = int
 idArticulo = 1
 # Mensaje de error en int y en float
 mensajeError = "Error. El número introducido no es válido."
-# Solo artículos activos
-articulo_activo = True
+# Precio mínimo
 minimoPrecioStock = 0
+# El artículo debe de estar activado o no
+articulo_activo = True
 
 # Funciones
 # Función de mostrar el menú
@@ -51,8 +52,9 @@ def listar_articulos(listaArticulos, solo_activos=None):
     # Listar los articulos recorriendo la lista
     for articulo in listaArticulos:
         # recorrer el diccionario clave valor e imprimirlo por pantalla
-        for campoDato, dato in articulo.items():
-            print(f"{campoDato}: {dato}")
+        if articulo["activo"] == solo_activos:
+            for campoDato, dato in articulo.items():
+                print(f"{campoDato}: {dato}")
         # Este print es para que quede más separado y sea más leible
         print()
 # Función para listar artículos disponibles por la id introducida
@@ -163,7 +165,16 @@ while opcion != 7:
             print(f"El artículo '{nombre}' con id '{idArticulo}', precio '{precio}€' y stock '{stock}' en estado: '{activo}' ha sido agregado correctamente.")
         # Listar artículos
         case 2:
-            listar_articulos(articulos)
+            buscar = str(input("¿Desea buscar artículos activos o inactivos?: "))
+            if buscar.lower() == "activos":
+                articulo_activo = True
+            elif buscar.lower() == "inactivos":
+                articulo_activo = False
+            else:
+                print(f"Error. El valor {buscar} no ha sido reconocido por el sistema.")
+                articulo_activo = True
+                print("Valor para buscar por defecto: Activos")
+            listar_articulos(articulos, articulo_activo)
         # Buscar artículo por id
         case 3:
             idBusca = int(input("Introduce el id del artículo a buscar: "))

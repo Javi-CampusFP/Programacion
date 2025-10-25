@@ -1,9 +1,9 @@
 # Variables globales
 
 # Modelo de datos seleccionado: A
-# Diccionario de articulos metido dentro de una lista
+# Diccionario de artículos metido dentro de una lista
 articulos = [{"id" : 1, "nombre" : "Ratón", "precio" : 12.5, "stock": 20, "activo": True}]
-# Definir la variable opcion.
+# Definir la variable opción.
 opcion = int
 # Declaramos id del artículo 1, porque ya hay uno con id 1
 idArticulo = 1
@@ -65,24 +65,24 @@ def buscar_articulo_por_id(listaArticulos, id_busqueda):
             articuloEncontrado = True
             for campoDato, dato in articulo.items():
                 print(f"{campoDato} : {dato}")
-    # Si no se encontro el artículo se le indica al usuario
+    # Si no se encontró el artículo se le indica al usuario
     if articuloEncontrado == False:
         print(f"El artículo con la id {id_busqueda} no ha sido encontrado.")
 
 # Función para actualizar X artículo
 def actualizar_articulo(listaArticulos):
-    # Parametros que podemos actualizar
+    # Parámetros que podemos actualizar
     camposArticulo = ["Nombre", "Precio", "Stock"]
     # Id del artículo a actualizar
     idArticulo = int(input("Introduce el id del artículo a cambiar: "))
-    # Imprimir los parametros actualizables
+    # Imprimir los parámetros actualizables
     for articulo in camposArticulo:
         print(f"- {articulo}")
     # Elegir la opción a actualizar
     actualizar = str(input("¿Qué desea actualizar?: "))
     # Declarar si encontramos el artículo o no
     articuloEncontrado = False
-    # Para articulo en listaArticulos buscar si el valor "id" coincide con la id introducida
+    # Para artículo en listaArticulos buscar si el valor "id" coincide con la id introducida
     for articulo in listaArticulos:
         if articulo["id"] == idArticulo:
             # Si coincide, actualizamos la variable articuloEncontrado para indicar que lo encontramos
@@ -137,7 +137,7 @@ def alternar_activo(listaArticulos):
                 articulo.update({"activo" : False})
             # Indica el estado actual con un print
             print(f"El artículo con id {idArticulo} ha sido actualizado a {articulo["activo"]}")
-    # Si no se encontro el producto se indica
+    # Si no se encontró el producto se indica
     if articuloEncontrado == False:
         print(f"El artículo con id '{idArticulo}' no ha sido encontrado.")
 
@@ -149,7 +149,7 @@ while opcion != 7:
     match opcion:
         # Crear artículo
         case 1:
-            # Se piden los datos necesarios para crear un articulo
+            # Se piden los datos necesarios para crear un artículo
             idArticulo = generar_id(idArticulo)
             nombre = str(input("Introduce el nombre del artículo: "))
             precio = leer_float(mensajeError, minimoPrecioStock)
@@ -159,7 +159,7 @@ while opcion != 7:
             else:
                 activo = True
             articulos.append({"id" : idArticulo, "nombre" : nombre, "precio" : precio, "stock" : stock, "activo" : activo})
-            # Indicarle al usuario que se realizo la operación correctamente
+            # Indicarle al usuario que se realizó la operación correctamente
             print(f"El artículo '{nombre}' con id '{idArticulo}', precio '{precio}€' y stock '{stock}' en estado: '{activo}' ha sido agregado correctamente.")
         # Listar artículos
         case 2:

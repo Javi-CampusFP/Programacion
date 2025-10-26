@@ -105,46 +105,44 @@ def actualizar_articulo(listaArticulos):
     # Parámetros que podemos actualizar
     camposArticulo = ["1. Nombre", "2. Precio", "3. Stock"]
     actualizarCampos = ["nombre", "precio", "stock"]
+
     # Id del artículo a actualizar
-    idArticulo = int(input("Introduce el id del artículo a cambiar: "))
-    # Declarar si encontramos el artículo o no
+    id_buscar = int(input("Introduce el id del artículo a cambiar: "))
     articuloEncontrado = False
-        # Para artículo en listaArticulos buscar si el valor "id" coincide con la id introducida
+
     for articulo in listaArticulos:
-        if articulo["id"] == idArticulo:
-            # Si coincide, actualizamos la variable articuloEncontrado para indicar que lo encontramos
+        if articulo["id"] == id_buscar:
             articuloEncontrado = True
             # Imprimir los parámetros actualizables
-            for articulo in camposArticulo:
-                print(f"- {articulo}")
+            for opcion in camposArticulo:        # <-- variable distinta para evitar shadowing
+                print(f"- {opcion}")
             # Elegir la opción a actualizar
             actualizar = int(input("¿Qué desea actualizar? (introduzca un número): "))
             actualizar = actualizar - 1
-            # Actualizar segun lo elegido por el usuario
+            # Actualizar según lo elegido por el usuario
             match actualizar:
                 case 0:
                     # Pedir el nuevo nombre
-                    nuevoValor = str(input("Introduce el nombre nuevo: "))
-                    # Actualizar el diccionario con el nuevo valor en la posición que le corresponde
-                    articulo.update({actualizarCampos[actualizar] : nuevoValor})
-                    print(f"El valor '{actualizar}' del artículo '{idArticulo}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
+                    nuevoValor = input("Introduce el nombre nuevo: ")
+                    # Actualizar el diccionario
+                    articulo[actualizarCampos[actualizar]] = nuevoValor
+                    print(f"El valor '{actualizar + 1}' del artículo '{id_buscar}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
                 case 1:
                     nuevoValor = leer_float(mensajeError, minimoPrecioStock)
-                    articulo.update({actualizarCampos[actualizar] : nuevoValor})
-                    print(f"El valor '{actualizar}' del artículo '{idArticulo}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
+                    articulo[actualizarCampos[actualizar]] = nuevoValor
+                    print(f"El valor '{actualizar + 1}' del artículo '{id_buscar}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
                 case 2:
                     nuevoValor = leer_int(mensajeError, minimoPrecioStock)
                     # Si el nuevo stock es 0, cambiar de "activo" = True a False
                     if nuevoValor == 0:
-                        articulo.update({"activo" : False})
-                    articulo.update({actualizarCampos[actualizar] : nuevoValor})
-                    print(f"El valor '{actualizar}' del artículo '{idArticulo}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
+                        articulo["activo"] = False
+                    articulo[actualizarCampos[actualizar]] = nuevoValor
+                    print(f"El valor '{actualizar + 1}' del artículo '{id_buscar}' ha sido actualizado con el valor '{nuevoValor}' correctamente.")
                 case _:
-                    # Si no se ha seleccionado ninguna de las opciones bien, el programa lo indica
-                    print("El valor introducido no fue reconocido por el sistema. Intentálo de nuevo.")
-    # Si no se ha encontrado el artículo, el programa lo indica
+                    print("El valor introducido no fue reconocido por el sistema. Inténtalo de nuevo.")
+            break  # ya actualizamos, no hace falta seguir buscando
     if articuloEncontrado == False:
-        print(f"El artículo con id {idArticulo} no ha sido encontrado.")
+        print(f"El artículo con id {id_buscar} no ha sido encontrado.")
 
 # Eliminar artículo
 def eliminar_articulo(listaArticulos):

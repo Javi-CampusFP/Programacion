@@ -191,7 +191,7 @@ def menu_general():
     menu = ["1. Gestionar productos", "2. Gestionar usuarios", "3. Carrito y ventas", "4. Salir del programa"]
     for entrada in menu:
         print(entrada)
-# Menu de usuarios
+# Menú de usuarios
 def menu_usuarios():
     menu = ["1. Crear usuario","2. Listar usuarios","3. Buscar usuario por id","4. Actualizar usuario","5. Eliminar usuario","6. Alternar activo/inactivo","7. Volver"]
     for entrada in menu:
@@ -320,7 +320,7 @@ def alternar_activo_usuario(usuarios):
 # ---------------------------- Funciones PARTE 3 ----------------------------
 
 # ---------------------------- Lógica del código ----------------------------
-# MENU GENERAL
+# MENÚ GENERAL
 while opcionGeneral != 4:
     # Llama a la función para imprimir el menú
     menu_general()
@@ -374,7 +374,7 @@ while opcionGeneral != 4:
                     # Si el usuario mete un número inválido, indicarselo. (Fuera de rango)
                     case _:
                         print("Número introducido inválido. ")
-            # Aqui se pone opción a 0. Si no se estableciese cada vez que se realiza este bucle,
+            # Aquí se pone opción a 0. Si no se estableciese cada vez que se realiza este bucle,
             # si salimos de una opción, no podemos irnos directamente a otra opción del menú, puesto
             # que opción = 7 y sale siempre.
             opcion = 0

@@ -202,7 +202,7 @@ def crear_usuario(usuarios):
     # Comprueba si el email cumple con los requisitos o no
     while ("@" not in email) or ("." not in email):
         # Sino se le pide otra vez al usuario
-        email = str(input("Error. El email no contiene '@' o '.' . Intentalo de nuevo: "))
+        email = str(input("Error. El email no contiene '@' o '.' . Inténtalo de nuevo: "))
     # pedirle al usuario un input de texto de sí o no
     activo = str(input("Introduce si se activa el usuario o no (sí o no): "))
     if activo.lower() == "si" or activo == "sí":
@@ -278,7 +278,7 @@ def actualizar_usuario(usuarios):
                     nuevoValor = str(input("Introduce el nuevo correo electrónico: "))
                     # Comprobar si el nuevo correo cumple los requisitos
                     while ("@" not in nuevoValor) or ("." not in nuevoValor):
-                        nuevoValor = str(input("Error. El email no contiene '@' o '.' . Intentalo de nuevo: "))
+                        nuevoValor = str(input("Error. El email no contiene '@' o '.' . Inténtalo de nuevo: "))
                     usuario.update({actualizarCampos[actualizar] : nuevoValor})
                     print(f"El usuario con id '{idBusqueda}' se ha actualizado el valor correctamente a '{nuevoValor}'")
                 # Opción fuera de rango

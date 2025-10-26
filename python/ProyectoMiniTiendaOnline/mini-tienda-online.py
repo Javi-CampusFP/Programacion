@@ -308,6 +308,7 @@ def alternar_activo_usuario(usuarios):
     idBuscar = int(input("Introduce el id del usuario a activar/desactivar: "))
     for usuario in usuarios:
         if usuario["id"] == idBuscar:
+            encontrado = True
             # Si el usuario cumple con los requisitos de id, si estaba en activo se pone en inactivo y viceversa
             if usuario["activo"] == False:
                 usuario["activo"] = True
@@ -387,14 +388,14 @@ while opcionGeneral != 4:
                     # Crear usuario
                     case 1:
                         # Generamos un id afuera
-                        # Si se genera dentro de la función (lo he probado), da error. Puesto que idUsuario es una variable global y no especifica de la función
+                        # Si se genera dentro de la función (lo he probado), da error. Puesto que idUsuario es una variable global y no especifíca de la función
                         idUsuario = generar_id(idUsuario)
                         crear_usuario(listaUsuarios)
                     # Listar usuarios
                     case 2:
                         # Pedimos al usuario si quiere buscar usuarios activos o inactivos, y se lo pasamos como argumento a la función
                         buscar = str(input("¿Desea buscar usuarios activos o inactivos?: "))
-                        # La función tambien tiene como argumento la lista de los usuarios
+                        # La función también tiene como argumento la lista de los usuarios
                         listar_usuarios(listaUsuarios, buscar)
                     # Buscar usuario por id
                     case 3:

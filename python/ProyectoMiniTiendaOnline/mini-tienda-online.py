@@ -7,6 +7,9 @@
 
 # Importar toda la libreria
 import libreria
+import libreriaArticulo
+import libreriaUsuarios
+import libreriaCarrito
 
 
 # Variables globales
@@ -67,7 +70,7 @@ while opcionGeneral != 4:
         # ---------------------------- PARTE 1 DEL EJERCICIO ----------------------------
         case 1:
             while opcion != 7:
-                libreria.menu_articulos()
+                libreriaArticulo.menu_articulos()
                 opcion = int(input("Introduce una opción: "))
                 match opcion:
                     # Crear artículo
@@ -88,22 +91,22 @@ while opcionGeneral != 4:
                     case 2:
                         # Primero se pregunta si se desea buscar artículos activos o inactivos y luego se le pasa como argumento a la función
                         buscar = str(input("¿Desea buscar artículos activos o inactivos?: "))
-                        libreria.listar_articulos(articulos, buscar)
+                        libreriaArticulo.listar_articulos(articulos, buscar)
                     # Buscar artículo por id
                     case 3:
                         # Se pide primero un id y luego se le pasa como argumento a la función
                         idBusca = int(input("Introduce el id del artículo a buscar: "))
-                        libreria.buscar_articulo_por_id(articulos, idBusca)
+                        libreriaArticulo.buscar_articulo_por_id(articulos, idBusca)
                     # Actualizar artículo
                     case 4:
                         # Se le pasa como argumento la lista de artículos
-                        libreria.actualizar_articulo(articulos)
+                        libreriaArticulo.actualizar_articulo(articulos)
                     # Eliminar artículo
                     case 5:
-                        libreria.eliminar_articulo(articulos)
+                        libreriaArticulo.eliminar_articulo(articulos)
                     # Alternar activo/inactivo
                     case 6:
-                        libreria.alternar_activo(articulos)
+                        libreriaArticulo.alternar_activo(articulos)
                     # Si el usuario mete el número 7, se le indica que salió de la sección de artículos
                     case 7:
                         print("Has salido de la sección de artículos.")
@@ -117,7 +120,7 @@ while opcionGeneral != 4:
         # ---------------------------- PARTE 2 DEL EJERCICIO ----------------------------
         case 2:
             while opcion != 7:
-                libreria.menu_usuarios()
+                libreriaUsuarios.menu_usuarios()
                 opcion = int(input("Introduce un número: "))
                 match opcion:
                     # Crear usuario
@@ -125,27 +128,27 @@ while opcionGeneral != 4:
                         # Generamos un id afuera
                         # Si se genera dentro de la función (lo he probado), da error. Puesto que idUsuario es una variable global y no especifíca de la función
                         idUsuario = libreria.generar_id(idUsuario)
-                        libreria.crear_usuario(listaUsuarios)
+                        libreriaUsuarios.crear_usuario(listaUsuarios)
                     # Listar usuarios
                     case 2:
                         # Pedimos al usuario si quiere buscar usuarios activos o inactivos, y se lo pasamos como argumento a la función
                         buscar = str(input("¿Desea buscar usuarios activos o inactivos?: "))
                         # La función también tiene como argumento la lista de los usuarios
-                        libreria.listar_usuarios(listaUsuarios, buscar)
+                        libreriaUsuarios.listar_usuarios(listaUsuarios, buscar)
                     # Buscar usuario por id
                     case 3:
                         # Pide al usuario un id para buscar y lo pasa como argumento a la función
                         idBusca = int(input("Introduce el id del usuario a buscar: "))
-                        libreria.buscar_usuario_por_id(listaUsuarios, idBusca)
+                        libreriaUsuarios.buscar_usuario_por_id(listaUsuarios, idBusca)
                     # Actualizar usuario
                     case 4:
-                        libreria.actualizar_usuario(listaUsuarios)
+                        libreriaUsuarios.actualizar_usuario(listaUsuarios)
                     # Eliminar usuario
                     case 5:
-                        libreria.eliminar_usuario(listaUsuarios)
+                        libreriaUsuarios.eliminar_usuario(listaUsuarios)
                     # Alternar activo/inactivo
                     case 6:
-                        libreria.alternar_activo_usuario(listaUsuarios)
+                        libreriaUsuarios.alternar_activo_usuario(listaUsuarios)
                     # Volver al menú principal
                     case 7:
                         print("Has salido de la sección de usuarios.")
@@ -156,29 +159,29 @@ while opcionGeneral != 4:
         # ---------------------------- PARTE 3 DEL EJERCICIO ----------------------------
         case 3:
             while opcion != 8:
-                libreria.menu_ventas()
+                libreriaCarrito.menu_ventas()
                 opcion = int(input("Introduce un número: "))
                 match opcion:
                     # Seleccionar usuario activo
                     case 1:
-                        usuario_activo = libreria.seleccionar_usuario_activo(listaUsuarios)
+                        usuario_activo = libreriaCarrito.seleccionar_usuario_activo(listaUsuarios)
                     # Añadir artículo al carrito
                     case 2:
-                        libreria.anadir_al_carrito(carrito_actual, articulos)
+                        libreriaCarrito.anadir_al_carrito(carrito_actual, articulos)
                     # Quitar artículo del carrito
                     case 3:
-                        libreria.quitar_del_carrito(carrito_actual)
+                        libreriaCarrito.quitar_del_carrito(carrito_actual)
                     # Ver carrito (detalle y total)
                     case 4:
-                        totalFinal = libreria.calcular_total_carrito(carrito_actual, articulos)
+                        totalFinal = libreriaCarrito.calcular_total_carrito(carrito_actual, articulos)
                         print("El total del carrito es: ",totalFinal)
                     # Confirmar compra (resta stock y registra venta)
                     case 5:
                         idVenta = libreria.generar_id(idVenta)
-                        libreria.confirmar_compra(carrito_actual, articulos, usuario_activo, ventas)
+                        libreriaCarrito.confirmar_compra(carrito_actual, articulos, usuario_activo, ventas)
                     # Historial de ventas por usuario
                     case 6:
-                        libreria.historial_ventas_por_usuario(ventas,usuario_activo)
+                        libreriaCarrito.historial_ventas_por_usuario(ventas,usuario_activo)
                     # Vaciar carrito
                     case 7:
                         carrito_actual = []

@@ -45,13 +45,14 @@ while opcionGeneral != 5:
                         equipos.listarEquipos(listaEquipos)
                     # Buscar equipo por id
                     case 3:
-                        print()
+                        equipos.buscarIdEquipo(listaEquipos)
                     # Actualizar datos de equipo
                     case 4:
-                        print()
-                    # Salir del programa
+                        equipos.actualizarDatos(listaEquipos)
+                    # Desactivar equipo
                     case 5:
-                        print()
+                        equipos.desactivarEquipo(listaEquipos)
+                    # Indicarle al usuario que ha salido del apartado en el que se encontraba
                     case 6:
                         print("Has salido de la sección de gestión de equipos")
                     # Si se introduce un número fuera de rango imprimir en pantalla:
@@ -59,13 +60,73 @@ while opcionGeneral != 5:
                         print("Error. El número introducido esta fuera de rango. Introduzca un número válido")
         # Gestión de jugadores
         case 2:
-            print()
+            while opcion != 6:
+                opcion = jugadores.menu()
+                match opcion:
+                    # Dar de alta a un jugador
+                    case 1:
+                        print()
+                    # Listar jugadores
+                    case 2:
+                        print()
+                    # Buscar jugador por id
+                    case 3:
+                        print()
+                    # Actualizar jugador
+                    case 4:
+                        print()
+                    # Desactivar jugador
+                    case 5:
+                        print()
+                    # Indicarle al usuario que ha salido del apartado en el que se encontraba
+                    case 6:
+                        print("Has salido de la sección de gestión de jugadores")
+                    # Si se introduce un número fuera de rango imprimir en pantalla:
+                    case _:
+                        print("Error. El número introducido esta fuera de rango. Introduzca un número válido")
         # Calendario de partidos
         case 3:
-            print()
+            while opcion != 5:
+                opcion = calendario.menu()
+                match opcion:
+                    # Crear partido
+                    case 1:
+                        print()
+                    # Listar partido
+                    case 2:
+                        print()
+                    # Reprogramar partido
+                    case 3:
+                        print()
+                    # Eliminar partido
+                    case 4:
+                        print()
+                    # Indicarle al usuario que ha salido del apartado en el que se encontraba
+                    case 5:
+                        print("Has salido de la sección del calendario de partidos")
+                    # Si se introduce un número fuera de rango imprimir en pantalla:
+                    case _:
+                        print("Error. El número introducido esta fuera de rango. Introduzca un número válido")
         # Resultados y calificaciones
         case 4:
-            print()
+            while opcion != 4:
+                opcion = ranking.menu()
+                match opcion:
+                    # Registrar resultado de partido
+                    case 1:
+                        print()
+                    # Clasificación de equipos
+                    case 2:
+                        print()
+                    # Estadisticas por equipo
+                    case 3:
+                        print()
+                    # Indicarle al usuario que ha salido del apartado en el que se encontraba
+                    case 4:
+                        print("Has salido de la sección del ranking de equipos")
+                    # Si se introduce un número fuera de rango imprimir en pantalla:
+                    case _:
+                        print("Error. El número introducido esta fuera de rango. Introduzca un número válido")
         # Salir del programa
         case 5:
             print("Ha salido del programa.")

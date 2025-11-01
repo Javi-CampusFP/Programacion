@@ -7,3 +7,11 @@ def menu():
         indice = indice + 1
     opcion = int(input("Introduce una opción del menú: "))
     return opcion
+def crearPartido(id, lista):
+    print()
+def listarPartido(lista):
+    print()
+def reprogramarPartido(lista):
+    print()
+def eliminarPartido(lista):
+    print()

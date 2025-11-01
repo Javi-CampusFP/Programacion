@@ -7,3 +7,9 @@ def menu():
         indice = indice + 1
     opcion = int(input("Introduce una opción del menú: "))
     return opcion
+def registrarResultado(lista):
+    print()
+def clasificacionEquipo(lista):
+    print()
+def estadisticasEquipo(lista):
+    print()

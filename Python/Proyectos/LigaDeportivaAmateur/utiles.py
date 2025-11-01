@@ -25,3 +25,7 @@ def comprobarString(nombre, campo):
     while len(nombre) <= 0:
         nombre = str(input(f"Error. El campo {campo} no puede estar vacio."))
     return nombre
+def leer_int(entero, valor):
+    entero = int(input(f"Introduce un número para el valor {valor}: "))
+    while entero <= 0:
+        entero = int(input(f"El valor {valor} no puede estar vacio ni ser menor a 0: "))

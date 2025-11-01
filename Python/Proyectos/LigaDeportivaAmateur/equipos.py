@@ -1,7 +1,7 @@
 # Importar librerias
 from tabulate import tabulate
-from general import comprobarString
-
+from utiles import comprobarString
+from utiles import generarId
 # Declarar funciones
 # Función principal del menú
 def menu():
@@ -66,11 +66,11 @@ def listarEquipos(lista):
                 if elemento["activo"] == False:
                     inactivos.append(elemento)
             if len(inactivos) > 0:
-                print(tabulate(activos, headers="keys", tablefmt="grid"))
+                print(tabulate(inactivos, headers="keys", tablefmt="grid"))
             else:
                 print("No hay equipos inactivos")
         case _:
-            print("El número introducido esta fuera de rango.")
+            print("El número introducido está fuera de rango.")
 
 # Buscar por id
 def buscarIdEquipo(lista):
@@ -109,14 +109,19 @@ def actualizarDatos(lista):
                 indice = indice + 1
             eleccion = int(input("Introduce una opción para actualizar: "))
             match eleccion:
+                # Cambiar el nombre del equipo (no puede estar vacia)
                 case 1:
                     nombreEquipo = str
                     print(f"Nombre actual: '{elemento["nombre"]}'")
                     nombreEquipo = comprobarString(nombreEquipo, "nombre")
+                    elemento["nombre"] = nombreEquipo
+                # Cambiar la ciudad del equipo (no puede estar vacia)
                 case 2:
                     ciudadEquipo = str
                     print(f"Ciudad actual: '{elemento["ciudad"]}'")
                     ciudadEquipo = comprobarString (ciudadEquipo, "ciudad")
+                    elemento["ciudad"] = ciudadEquipo
+                # Cambiar de activo a inactivo y de inactivo a activo
                 case 3:
                     if elemento["activo"] == False:
                         elemento["activo"] = True
@@ -125,7 +130,7 @@ def actualizarDatos(lista):
                         elemento["activo"] = False
                         print(f"El equipo con nombre '{elemento["nombre"]}' ha sido actualizado a '{elemento["activo"]}'")
                 case _:
-                    print("Error. El número introducido esta fuera de rango. Introduzca un número válido")
+                    print("Error. El número introducido está fuera de rango. Introduzca un número válido")
     if encontrado == False:
         print(f"No se ha encontrado ningun equipo con el id '{id}'")
 

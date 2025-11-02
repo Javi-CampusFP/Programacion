@@ -8,24 +8,32 @@ def menu():
     # Pongo un índice automático porque esto a la larga es más fácil de mantener
     # que meter el número dentro del string
     indice = 1
+    print()
     for entrada in lista:
         print(f"{indice}. {entrada}")
         indice = indice + 1
+    print()
     opcion = int(input("Introduce una opción del menú: "))
     return opcion
 
 # Función para generar un id
+# Módulo: app.py
 def generarId(id):
     id = id + 1
     return id
-# Esta sirviendo actualmente para comprobar que el nombre del equipo o ciudad no está vacio.
+
 # Módulo: equipos.py
+# Esta sirviendo actualmente para comprobar que el nombre del equipo o ciudad no está vacio.
 def comprobarString(nombre, campo):
     nombre = str(input(f"Introduce el {campo}: "))
     while len(nombre) <= 0:
         nombre = str(input(f"Error. El campo {campo} no puede estar vacio."))
     return nombre
-def leer_int(entero, valor):
+
+# Módulo: jugadores.py
+# Sirve para leer un entero
+def leer_int_mayor(valor, minimo):
     entero = int(input(f"Introduce un número para el valor {valor}: "))
-    while entero <= 0:
-        entero = int(input(f"El valor {valor} no puede estar vacio ni ser menor a 0: "))
+    while entero <= minimo:
+        entero = int(input(f"El valor {valor} no puede estar vacio ni ser menor a {minimo}: "))
+    return entero

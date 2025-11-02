@@ -76,7 +76,7 @@ while opcionGeneral != 5:
                         jugadores.jugadorPorId(listaJugadores)
                     # Actualizar jugador
                     case 4:
-                        jugadores.actualizarJugador(listaJugadores)
+                        jugadores.actualizarJugador(listaJugadores, listaEquipos)
                     # Desactivar jugador
                     case 5:
                         jugadores.desactivarJugador(listaJugadores)

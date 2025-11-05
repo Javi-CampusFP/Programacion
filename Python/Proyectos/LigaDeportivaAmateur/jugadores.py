@@ -2,7 +2,6 @@
 from utiles import comprobarString, leer_int_mayor
 from tabulate import tabulate
 # Declarar funciones
-
 def menu():
     # Declarar una lista con las entradas
     lista = ["Alta de jugador","Listar jugadores","Buscar jugador por id",
@@ -37,7 +36,7 @@ def darAltaJugador(id, jugadores, equipos):
         if equipo["id"] == idEquipo:
             encontrado = True
             # Si es activo, cambiar la variable a activo
-            if equipo["activo"] == True:
+            if equipo["activo"]:
                 activo = True
                 # Pedir nombre y posición
                 nombreJugador = comprobarString(nombreJugador, "nombre")
@@ -58,11 +57,11 @@ def darAltaJugador(id, jugadores, equipos):
                 jugadores.append({"id" : id, "nombre" : nombreJugador, "equipo" : idEquipo, "posicion" : posicion, "activo" : jugadorActivo})
                 print(f"El jugador con id {id} ha sido agregado correctamente al equipo {idEquipo}")
     # Si no se encuentra o no esta activo indicarlo
-    if encontrado == False or activo == False:
+    if not encontrado or not activo:
         print(f"El equipo con id '{id}' no ha sido encontrado o el equipo con id {idEquipo} esta inactivo.")
 
 # Función para listar a los jugadores de una lista
-def listarJugadores(jugadores):
+def listarJugadores(jugadores, equipos):
     # Declarar las opciones disponibles que se indican en el ejercicio
     encontrado = False
     opciones = ["Todos los jugadores", "De un equipo en concreto (un id)"]
@@ -77,39 +76,75 @@ def listarJugadores(jugadores):
     match opcion:
         # Todos los jugadores
         case 1:
-            print(tabulate(jugadores, headers="keys", tablefmt="grid"))
+            lista = []
+            for jugador in jugadores:
+                print()
+                equipo_nombre = str
+                for equipo in equipos:
+                    if equipo["id"] == jugador["equipo"]:
+                        equipo_nombre = equipo["nombre"]
+                        lista.append({
+                            "id": jugador["id"],
+                            "nombre": jugador["nombre"],
+                            "equipo": equipo_nombre,
+                            "posicion": jugador["posicion"],
+                            "activo": jugador["activo"]
+                        })
+            print(tabulate(lista, headers="keys", tablefmt="grid"))
         # De un equipo en concreto
         case 2:
             lista = []
+            equipoNombre = str
             idEquipo = leer_int_mayor("id del equipo", 0)
+            # Con esto sacamos el nombre del equipo
+            for equipo in equipos:
+                if equipo["id"] == idEquipo:
+                    equipoNombre = equipo["nombre"]
             for jugador in jugadores:
                 if jugador["equipo"] == idEquipo:
                     encontrado = True
                     # Agregamos el jugador dentro de la lista que luego vamos a mostrar
-                    lista.append(jugador)
+                    lista.append({
+                        "id" : jugador["id"],
+                        "nombre" : jugador["nombre"],
+                        "equipo" : equipoNombre,
+                        "posicion": jugador["posicion"],
+                        "activo" : jugador["activo"]
+                    })
             # Mostrar la lista
             print(tabulate(lista, headers="keys", tablefmt="grid"))
         # El usuario ha metido un número fuera del rango
         case _:
             print("Error. El número introducido está fuera de rango. Introduzca un número válido")
     # No se ha encontrado el equipo con esa id
-    if encontrado == False:
+    if not encontrado:
         print(f"El equipo con id '{idEquipo}' no tiene ningún jugador o no existe.")
 
 # Función para buscar a un jugador por id
-def jugadorPorId(jugadores):
+def jugadorPorId(jugadores, equipos):
     # Leer el entero y almacenarlo en un id
     id = leer_int_mayor("id del jugador",0)
     encontrado = False
+    nombreEquipo = str
     lista = []
     for jugador in jugadores:
         # Comprobar si el jugador tiene el id correcto
         if jugador["id"] == id:
             encontrado = True
-            lista.append(jugador)
+            for equipo in equipos:
+                print()
+                if equipo["id"] == jugador["equipo"]:
+                    nombreEquipo = equipo["nombre"]
+            lista.append({
+                "id" : jugador["id"],
+                "nombre" : jugador["nombre"],
+                "equipo" : nombreEquipo,
+                "posicion": jugador["posicion"],
+                "activo" : jugador["activo"]
+            })
             # Imprimir el jugador
             print(tabulate(lista, headers="keys", tablefmt="grid"))
-    if encontrado == False:
+    if not encontrado:
         print(f"El jugador con id '{id}' no existe.")
 
 # Función para actualizar a un jugador
@@ -119,19 +154,10 @@ def actualizarJugador(jugadores, equipos):
     for jugador in jugadores:
         if jugador["id"] == id:
             encontrado = True
-            lista = ["Nombre", "Posición", "Equipo", "Activo", "Sustitución"]
+            lista = ["Nombre", "Posición", "Equipo", "Activo"]
             indice = 1
             for entrada in lista:
                 print(f"{indice}. {entrada}")
-                indice = indice + 1
-            # Input del usuario para el número de índice
-
-def actualizarJugador(jugadores, equipos):
-    id = leer_int_mayor("id del jugador", 0)
-    encontrado = False
-    for jugador in jugadores:
-        if jugador["id"] == id:
-            encontrado = True
             opcion = int(input("Introduce un número de índice: "))
             match opcion:
                 # Actualizar nombre
@@ -147,7 +173,7 @@ def actualizarJugador(jugadores, equipos):
                     # Posición jugador, con clave posicion, es igual a la nueva posición
                     for jugadorPosicion in jugadores:
                         if (jugadorPosicion["posicion"] == nombrePosicion
-                        and jugadorPosicion["activo"] == True
+                        and jugadorPosicion["activo"]
                         and jugadorPosicion["equipo"] == jugador["equipo"]):
                             print(f"La nueva posición ya esta ocupada por otro jugador. El jugador con id '{jugador["id"]}' tendra la posición de suplente")
                             jugador["activo"] = False
@@ -156,19 +182,29 @@ def actualizarJugador(jugadores, equipos):
                     equipoEncontrado = False
                     print("Introduce el id del equipo a actualizar: ")
                     idEquipo = leer_int_mayor("id del equipo", 0)
+                    # Recorrer la lista equipos en busca de un id igual al introducido
                     for equipo in equipos:
                         if equipo["id"] == idEquipo:
                            equipoEncontrado = True
-                    if equipoEncontrado == False:
+                    # Se le indica al usuario que el id de equipo no existe
+                    if not equipoEncontrado:
                         print(f"El equipo '{idEquipo}' no existe.")
+                    # Sino se recorre la posición jugador, si el jugador X tiene la misma posición
+                    # entonces el nuevo cambia a activo = False
                     else:
                         for jugadorPosicion in jugadores:
                             if (jugadorPosicion["posicion"] == jugador["posicion"]
                                 and jugadorPosicion["equipo"] == idEquipo):
                                     print(f"El jugador con id '{id}' tiene la misma posición que el jugador con id '{jugadorPosicion["id"]} en el equipo con id {idEquipo}'")
+                                    jugador["activo"] = False
+                        jugador["equipo"] = idEquipo
+                        print(f"El jugador con id {id} ha sido cambiado correctamente al equipo {idEquipo}")
                 # Actualizar activo/inactivo
+                # Hace comprobaciones para comprobar si en el equipo en el que se le quiere activar
+                # ya hay un jugador activo en la misma posición, si es asi, entonces pone en inactivo
+                # a todos los demás de la misma posición y deja al que se queria cambiar como activo.
                 case 4:
-                    if jugador["activo"] == False:
+                    if not jugador["activo"]:
                         for jugadorPosicion in jugadores:
                             if jugador["posicion"] == jugadorPosicion["posicion"]:
                                 print(f"El jugador con id '{jugadorPosicion["id"]}' tiene la misma posición que el jugador a activar.")
@@ -179,14 +215,28 @@ def actualizarJugador(jugadores, equipos):
                         jugador["activo"] = False
                 case _:
                     print("Error. El número introducido está fuera de rango. Introduzca un número válido")
-
+    if not encontrado:
+        print(f"El jugador con id '{id}' no existe.")
 # Función para desactivar a un jugador
 def desactivarJugador(jugadores):
     id = leer_int_mayor("id del jugador", 0)
+    # Busca en los jugadores
     for jugador in jugadores:
+        # Busca la coincidencia en el campo id
         if jugador["id"] == id:
-            if jugador["activo"] == False:
+            # Si el jugador no esta activo
+            if not jugador["activo"]:
+                # para cada jugador en posicion
+                for jugadorPosicion in jugadores:
+                    # comparar si es la misma posición
+                    if jugador["posicion"] == jugadorPosicion["posicion"]:
+                        print(f"El jugador con id '{jugadorPosicion["id"]}' tiene la misma posición que el jugador a activar.")
+                        print(f"Se ha actualizado el jugador con id '{jugadorPosicion["id"]}' ha sido actualizado a inactivo ")
+                        # Si es la misma, indicar que el jugador en esa posición esta en False ahora
+                        jugadorPosicion["activo"] = False
+                    # Activar al jugador
                 jugador["activo"] = True
             else:
+                # Sino, simplemente le desactivamos
                 jugador["activo"] = False
             print(f"El jugador con id '{id}' ha sido cambiado a {jugador["activo"]}")

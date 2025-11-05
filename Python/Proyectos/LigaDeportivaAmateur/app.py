@@ -1,4 +1,3 @@
-# Importar librerias
 import equipos
 import jugadores
 import calendario
@@ -70,10 +69,10 @@ while opcionGeneral != 5:
                         jugadores.darAltaJugador(idJugador, listaJugadores, listaEquipos)
                     # Listar jugadores
                     case 2:
-                        jugadores.listarJugadores(listaJugadores)
+                        jugadores.listarJugadores(listaJugadores, listaEquipos)
                     # Buscar jugador por id
                     case 3:
-                        jugadores.jugadorPorId(listaJugadores)
+                        jugadores.jugadorPorId(listaJugadores, listaEquipos)
                     # Actualizar jugador
                     case 4:
                         jugadores.actualizarJugador(listaJugadores, listaEquipos)
@@ -94,10 +93,10 @@ while opcionGeneral != 5:
                     # Crear partido
                     case 1:
                         idPartido = utiles.generarId(idPartido)
-                        calendario.crearPartido(idPartido, listaPartidos)
+                        calendario.crearPartido(idPartido, listaPartidos, listaEquipos)
                     # Listar partido
                     case 2:
-                        calendario.listarPartido(listaPartidos)
+                        calendario.listarPartido(listaPartidos, listaEquipos)
                     # Reprogramar partido
                     case 3:
                         calendario.reprogramarPartido(listaPartidos)
@@ -120,10 +119,10 @@ while opcionGeneral != 5:
                         ranking.registrarResultado(listaPartidos)
                     # Clasificación de equipos
                     case 2:
-                        ranking.clasificacionEquipo(listaPartidos)
-                    # Estadisticas por equipo
+                        ranking.clasificacionEquipo(listaPartidos, listaEquipos)
+                    # Estadísticas por equipo
                     case 3:
-                        ranking.estadisticasEquipo(listaPartidos)
+                        ranking.estadisticasEquipo(listaPartidos, listaEquipos)
                     # Indicarle al usuario que ha salido del apartado en el que se encontraba
                     case 4:
                         print("Has salido de la sección del ranking de equipos")

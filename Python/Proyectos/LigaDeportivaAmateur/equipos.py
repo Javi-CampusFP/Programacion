@@ -51,7 +51,7 @@ def listarEquipos(lista):
             for elemento in lista:
                 # Recorro la lista, si el elemento con posicion ["activo"] es igual a true entonces agregar a
                 # la lista elemento (se agrega el diccionario)
-                if elemento["activo"] == True:
+                if elemento["activo"]:
                     activos.append(elemento)
             if len(activos) > 0:
                 # Si se encontro algún activo se imprime la tabla activos
@@ -63,7 +63,7 @@ def listarEquipos(lista):
             # Aqui aplica lo mismo pero para los inactivos
             inactivos = []
             for elemento in lista:
-                if elemento["activo"] == False:
+                if not elemento["activo"]:
                     inactivos.append(elemento)
             if len(inactivos) > 0:
                 print(tabulate(inactivos, headers="keys", tablefmt="grid"))
@@ -87,7 +87,7 @@ def buscarIdEquipo(lista):
             equipo.append(elemento)
             # Imprimir la lista equipo por pantalla
             print(tabulate(equipo, headers="keys", tablefmt="grid"))
-    if encontrado == False:
+    if not encontrado:
         print(f"No se ha encontrado ningun equipo con el id '{id}'")
 
 # Actualizar datos de un equipo por id
@@ -123,7 +123,7 @@ def actualizarDatos(lista):
                     elemento["ciudad"] = ciudadEquipo
                 # Cambiar de activo a inactivo y de inactivo a activo
                 case 3:
-                    if elemento["activo"] == False:
+                    if not elemento["activo"]:
                         elemento["activo"] = True
                         print(f"El equipo con nombre '{elemento["nombre"]}' ha sido actualizado a '{elemento["activo"]}'")
                     else:
@@ -131,7 +131,7 @@ def actualizarDatos(lista):
                         print(f"El equipo con nombre '{elemento["nombre"]}' ha sido actualizado a '{elemento["activo"]}'")
                 case _:
                     print("Error. El número introducido está fuera de rango. Introduzca un número válido")
-    if encontrado == False:
+    if not encontrado:
         print(f"No se ha encontrado ningun equipo con el id '{id}'")
 
 # Desactivar equipo por id
@@ -144,12 +144,12 @@ def desactivarEquipo(lista):
         if elemento["id"] == id:
             encontrado = True
             # Si la posicion activo antes era Falso, actualizar a verdadero
-            if elemento["activo"] == False:
+            if not elemento["activo"]:
                 elemento["activo"] = True
                 print(f"El elemento con id '{id}' ha sido actualizado a '{elemento["activo"]}'")
             # Sino, actualizar la posición a Falso
             else:
                 elemento["activo"] = False
                 print(f"El elemento con id '{id}' ha sido actualizado a '{elemento["activo"]}'")
-    if encontrado != True:
+    if not encontrado:
         print(f"No se ha encontrado ningun equipo con el id '{id}'")

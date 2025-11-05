@@ -37,3 +37,8 @@ def leer_int_mayor(valor, minimo):
     while entero <= minimo:
         entero = int(input(f"El valor {valor} no puede estar vacio ni ser menor a {minimo}: "))
     return entero
+def leer_int_menor(minimo):
+    entero = int(input(f"Introduce un número mayor a {minimo}: "))
+    while entero < minimo:
+        entero = int(input(f"El número no puede ser menor a {minimo}: "))
+    return entero

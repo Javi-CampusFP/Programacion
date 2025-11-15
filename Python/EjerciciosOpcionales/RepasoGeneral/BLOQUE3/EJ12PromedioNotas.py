@@ -7,9 +7,13 @@ while contador != 4:
     nota = float(input(f"Introduce la nota nº{contador}: "))
     listaNotas.append(nota)
 indice = 1
+media = 0
+contador = 0
 for notas in listaNotas:
-    if notas > 5:
-        print(f"La nota nº {indice} con valor {notas} esta aprobada.")
-    else:
-        print(f"La nota nº {indice} con valor {notas} esta suspensa.")
-    indice = indice + 1
+    media = media + notas
+    contador = contador + 1
+mediaFinal = media / contador
+if mediaFinal > 5:
+    print(f"Has aprobado con un '{mediaFinal}' de media")
+else:
+    print(f"Has suspendido con un '{mediaFinal}' de media")

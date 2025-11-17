@@ -6,12 +6,12 @@ from rich import print
 
 # La función para crear el tablero
 def generarTablero():
-    return np.zeros((3, 3), dtype=int)
+    # dtype es para definir el tipo. Objeto deja cambiar de floats a strings.
+    return np.zeros((3, 3), dtype=object)
 
 # Defino linea() que es más corto que hacer el print
 def linea():
     print("------------------------------------------")
-
 # Esta es la función que muestra las opciones al inicio, al usuario
 def menu(lista):
     # Un índice automático
@@ -24,13 +24,13 @@ def menu(lista):
     linea()
     # Pedir la opción al usuario
     opcion = int(input("Introduce un número de índice: "))
-    # Retornar el valor de la opción elegida 
+    # Retornar el valor de la opción elegida
     return opcion
 
 # Recoger los nombres de los usuarios
 def recogerNombre(jugadores):
     # Pido el nombre del jugador
-    numeroJugador = len(jugadores) + 1 
+    numeroJugador = len(jugadores) + 1
     nombre = str(input(f"Introduce un nombre de jugador nº{numeroJugador}: "))
     # Mientras el nombre del jugador tenga una longitud igual a 0,
     # Pedir el nombre otra vez.
@@ -65,12 +65,52 @@ def comprobarSiguienteTurno (turno,jugadores):
             print(f"Turno del jugador con nombre: {jugadores[0]}")
             return 0
 
-def comprobarEmpate (tablero):
-    print()
-def comprobarVictoria (tablero):
-    print()
+def comprobarResultado(tablero,turno,jugadores):
+    hayResultado = False
+    variable = str()
+    match turno:
+        case 0:
+            variable = "X"
+        case 1:
+            variable = "O"
+    # Comprobar si se ha ganado horizontalmente
 
-def comprobarNumeroFueraRango(coordenada):
-    while input > 2 or input < 0:
-        print(f"Error. La coordenada '{coordenada}' no puede salirse fuera del tablero")
-        input = int(input(f"Introduce la coordenada '{coordenada}':"))
+    # Recorrer toda la fila en un rango de 3
+    for fila in range(3):
+        # Establecer un contador
+        contador = 0
+        # Recorrer todas las columnas en un rango de 3
+        for col in range(3):
+            if tablero[fila,col] == variable:
+                contador = contador + 1
+            if contador == 3:
+                hayResultado = True
+                linea()
+                print(f"El jugador {jugadores[turno]} ha ganado! ")
+                linea()
+                return "victoria"
+    # Comprobar si se ha ganado verticalmente con el mismo método
+    for columna in range(3):
+        contador = 0
+        for fila in range(3):
+            if tablero[fila,columna] == variable:
+                contador = contador + 1
+            if contador == 3:
+                hayResultado = True
+                linea()
+                print(f"El jugador {jugadores[turno]} ha ganado! ")
+                linea()
+                return "victoria"
+    # Si no quedan casillas con el valor 0, y no hay un resultado, entonces se lanza un empate.
+    if 0 not in tablero and not hayResultado:
+        print("Ha habido un empate.")
+        return "Empate"
+    else:
+        return "N/A"
+
+def comprobarPosicion(eje):
+    coordenada = int(input(f"Introduce una coordenada en el eje '{eje}': ")) - 1
+    while (coordenada > 2) or (coordenada  < 0):
+        print(f"Error. La coordenada en el eje '{eje}' no puede salirse fuera del tablero")
+        coordenada = int(input("Introduce una coordenada: "))
+    return coordenada

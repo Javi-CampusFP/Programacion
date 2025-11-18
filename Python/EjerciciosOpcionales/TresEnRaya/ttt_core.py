@@ -8,6 +8,10 @@ from rich import print
 def generarTablero():
     # dtype es para definir el tipo. Objeto deja cambiar de floats a strings.
     return np.zeros((3, 3), dtype=object)
+def separacion():
+    print()
+    print("------------------------------------------")
+    print()
 
 # Defino linea() que es más corto que hacer el print
 def linea():
@@ -81,13 +85,16 @@ def comprobarResultado(tablero,turno,jugadores):
         contador = 0
         # Recorrer todas las columnas en un rango de 3
         for col in range(3):
+            # Si la posición fila,col tiene un dato igual a variable:
             if tablero[fila,col] == variable:
+                # Sumar 1 a contador
                 contador = contador + 1
+            # Si el contador es tres, entonces ha ganado el jugador con una fila horizontal
             if contador == 3:
                 hayResultado = True
-                linea()
+                separacion()
                 print(f"El jugador {jugadores[turno]} ha ganado! ")
-                linea()
+                separacion()
                 return "victoria"
     # Comprobar si se ha ganado verticalmente con el mismo método
     for columna in range(3):
@@ -97,10 +104,38 @@ def comprobarResultado(tablero,turno,jugadores):
                 contador = contador + 1
             if contador == 3:
                 hayResultado = True
-                linea()
+                separacion()
                 print(f"El jugador {jugadores[turno]} ha ganado! ")
-                linea()
+                separacion()
                 return "victoria"
+    # Diagonal principal
+    contador = 0
+    for indice in range(3):
+        fila = indice
+        columna = indice
+        if tablero[fila, columna] == variable:
+            contador += 1
+    if contador == 3:
+        hayResultado = True
+        separacion()
+        print(f"El jugador {jugadores[turno]} ha ganado! ")
+        separacion()
+        return "victoria"
+
+    # Diagonal secundaria
+    contador = 0
+    for indice in range(3):
+        fila = indice
+        columna = 2 - indice
+        if tablero[fila, columna] == variable:
+            contador += 1
+    if contador == 3:
+        hayResultado = True
+        separacion()
+        print(f"El jugador {jugadores[turno]} ha ganado! ")
+        separacion()
+        return "victoria"
+
     # Si no quedan casillas con el valor 0, y no hay un resultado, entonces se lanza un empate.
     if 0 not in tablero and not hayResultado:
         print("Ha habido un empate.")

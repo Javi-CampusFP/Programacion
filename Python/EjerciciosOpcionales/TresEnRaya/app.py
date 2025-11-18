@@ -34,17 +34,7 @@ while opcion != 3:
                     while len(jugadores) != 2:
                         ttt_core.recogerNombre(jugadores)
                     jugadorTurno = ttt_core.primerTurnoElegirJugador(jugadores)
-                    linea()
-                    print(tablero)
-                    linea()
-                    ejeY = ttt_core.comprobarPosicion("Y")
-                    ejeX = ttt_core.comprobarPosicion("X")
                     primerTurno = False
-                    match jugadorTurno:
-                        case 0:
-                            tablero[ejeY,ejeX] = "X"
-                        case 1:
-                            tablero[ejeY,ejeX] = "O"
                 else:
                     # Después de cada turno, un resumen de como va el tablero
                     linea()

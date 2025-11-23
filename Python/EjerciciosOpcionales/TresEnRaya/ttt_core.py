@@ -93,7 +93,7 @@ def comprobarResultado(tablero,turno,jugadores):
             if contador == 3:
                 hayResultado = True
                 separacion()
-                print(f"El jugador {jugadores[turno]} ha ganado! ")
+                print(f"¡El jugador '{jugadores[turno]}' ha ganado! ")
                 separacion()
                 return "victoria"
     # Comprobar si se ha ganado verticalmente con el mismo método
@@ -105,7 +105,7 @@ def comprobarResultado(tablero,turno,jugadores):
             if contador == 3:
                 hayResultado = True
                 separacion()
-                print(f"El jugador {jugadores[turno]} ha ganado! ")
+                print(f"¡El jugador '{jugadores[turno]}' ha ganado! ")
                 separacion()
                 return "victoria"
     # Diagonal principal
@@ -118,7 +118,7 @@ def comprobarResultado(tablero,turno,jugadores):
     if contador == 3:
         hayResultado = True
         separacion()
-        print(f"El jugador {jugadores[turno]} ha ganado! ")
+        print(f"¡El jugador '{jugadores[turno]}' ha ganado! ")
         separacion()
         return "victoria"
 
@@ -132,7 +132,7 @@ def comprobarResultado(tablero,turno,jugadores):
     if contador == 3:
         hayResultado = True
         separacion()
-        print(f"El jugador {jugadores[turno]} ha ganado! ")
+        print(f"¡El jugador '{jugadores[turno]}' ha ganado! ")
         separacion()
         return "victoria"
 
@@ -149,3 +149,50 @@ def comprobarPosicion(eje):
         print(f"Error. La coordenada en el eje '{eje}' no puede salirse fuera del tablero")
         coordenada = int(input("Introduce una coordenada: "))
     return coordenada
+# Esta función cálcula si la IA realizara un movimiento perfecto
+# Dependiendo de la dificultad elegida.
+def probabilidadMax(dificultad):
+    # Margen de error, a la alza de la dificultad
+    aleatoriedad = random.randint(0,10) * 0.01
+    match dificultad:
+        case 1:
+            return aleatoriedad + 0.40
+        case 2:
+            return aleatoriedad + 0.60
+        case 3:
+            return aleatoriedad + 0.90
+        case _:
+            print("Error. Ha introducido un número fuera de rango.")
+
+def calculoProbabilidad(probabilidad):
+    suerte = random.randint(0,100) * 0.01
+    if suerte > probabilidad:
+        return False
+    else:
+        return True
+
+def posicionRandom(posiciones,tablero):
+    rangoLongitud = len(posiciones) - 1
+    seleccion = random.randint(0,rangoLongitud)
+    tablero[seleccion] = "X"
+
+def posicionesLibres(tablero):
+    movimientosDisponibles = []
+    for col in range(3):
+        for fila in range(3):
+            if tablero[col,fila] == 0:
+                movimientosDisponibles.append((col,fila))
+    return movimientosDisponibles
+
+def algoritmoMinimax(tablero,posiciones,profundidad,esta_maximizando,turno,jugadores):
+    if comprobarResultado(tablero,turno,jugadores) == "victoria" and (turno == 1):
+        return int(100000)
+    elif comprobarResultado(tablero,turno,jugadores) == "victoria" and (turno == 0):
+        return int(-100000)
+    elif comprobarResultado(tablero,turno,jugadores) == "Empate":
+        return 0
+    if esta_maximizando:
+        maximo = -10000
+        for row in range(3):
+            for col in range(3):
+                print()

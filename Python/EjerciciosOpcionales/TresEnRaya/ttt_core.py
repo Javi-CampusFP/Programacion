@@ -184,15 +184,99 @@ def posicionesLibres(tablero):
                 movimientosDisponibles.append((col,fila))
     return movimientosDisponibles
 
-def algoritmoMinimax(tablero,posiciones,profundidad,esta_maximizando,turno,jugadores):
-    if comprobarResultado(tablero,turno,jugadores) == "victoria" and (turno == 1):
-        return int(100000)
-    elif comprobarResultado(tablero,turno,jugadores) == "victoria" and (turno == 0):
-        return int(-100000)
-    elif comprobarResultado(tablero,turno,jugadores) == "Empate":
+# --- Helpers para Minimax y utilidades corregidas ---
+
+def posiciones_libres(tablero):
+    """Devuelve lista de tuplas (fila, columna) libres (valor == 0)."""
+    movimientos_disponibles = []
+    for fila in range(3):
+        for col in range(3):
+            if tablero[fila, col] == 0:
+                movimientos_disponibles.append((fila, col))
+    return movimientos_disponibles
+
+def resultado_simplificado(tablero):
+    """
+    Comprueba el tablero sin imprimir nada.
+    Devuelve: "X" si X ha ganado, "O" si O ha ganado, "Empate" si empate, None si aún no finalizado.
+    """
+    # filas y columnas
+    for i in range(3):
+        # fila
+        if tablero[i,0] == tablero[i,1] == tablero[i,2] != 0:
+            return tablero[i,0]
+        # columna
+        if tablero[0,i] == tablero[1,i] == tablero[2,i] != 0:
+            return tablero[0,i]
+    # diagonal principal
+    if tablero[0,0] == tablero[1,1] == tablero[2,2] != 0:
+        return tablero[0,0]
+    # diagonal secundaria
+    if tablero[0,2] == tablero[1,1] == tablero[2,0] != 0:
+        return tablero[0,2]
+    # empate: si no quedan ceros
+    if 0 not in tablero:
+        return "Empate"
+    return None
+
+# Corregimos la función posicionRandom (si la quieres usar)
+def posicionRandom(posiciones, tablero):
+    """
+    posiciones: lista de tuplas (fila,col).
+    Asigna aleatoriamente una 'X' a una casilla libre (antes tu función tenía un bug).
+    """
+    if not posiciones:
+        return None
+    seleccion = random.choice(posiciones)
+    fila, col = seleccion
+    tablero[fila, col] = "X"
+    return seleccion
+
+# --- Minimax ---
+def algoritmoMinimax_rec(tablero, profundidad, esta_maximizando, ai_symbol="O", human_symbol="X"):
+    """
+    Implementación recursiva pura del Minimax que devuelve una puntuación.
+    profundidad se usa para preferir victorias más rápidas (o derrotas más tardías).
+    """
+    resultado = resultado_simplificado(tablero)
+    if resultado == ai_symbol:
+        return 100 - profundidad      # cuanto menor la profundidad mejor (victoria rápida)
+    elif resultado == human_symbol:
+        return -100 + profundidad     # cuanto mayor la profundidad, menos negativa
+    elif resultado == "Empate":
         return 0
+
     if esta_maximizando:
-        maximo = -10000
-        for row in range(3):
-            for col in range(3):
-                print()
+        mejor = -float('inf')
+        for (f, c) in posiciones_libres(tablero):
+            tablero[f, c] = ai_symbol
+            puntuacion = algoritmoMinimax_rec(tablero, profundidad + 1, False, ai_symbol, human_symbol)
+            tablero[f, c] = 0
+            if puntuacion > mejor:
+                mejor = puntuacion
+        return mejor
+    else:
+        peor = float('inf')
+        for (f, c) in posiciones_libres(tablero):
+            tablero[f, c] = human_symbol
+            puntuacion = algoritmoMinimax_rec(tablero, profundidad + 1, True, ai_symbol, human_symbol)
+            tablero[f, c] = 0
+            if puntuacion < peor:
+                peor = puntuacion
+        return peor
+
+def mejorMovimientoMinimax(tablero, jugadores=None, ai_symbol="O", human_symbol="X"):
+    mejor_puntuacion = -float('inf')
+    mejor_movimiento = None
+    for (f, c) in posiciones_libres(tablero):
+        tablero[f, c] = ai_symbol
+        puntuacion = algoritmoMinimax_rec(tablero, 0, False, ai_symbol, human_symbol)
+        tablero[f, c] = 0
+        if puntuacion > mejor_puntuacion:
+            mejor_puntuacion = puntuacion
+            mejor_movimiento = (f, c)
+    # devuelve (fila, columna) o None si no hay movimientos
+    return mejor_movimiento  
+
+
+

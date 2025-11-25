@@ -53,38 +53,53 @@ while opcion != 3:
                 resultado = ttt_core.comprobarResultado(tablero,jugadorTurno,jugadores)
         # Juego contra la IA
         case 2:
-            # Añade el nombre del jugador
             ttt_core.recogerNombre(jugadores)
-            # Añade "IA" a la lista jugadores
             jugadores.append("IA")
-            # Esto llama a la función para declarar uno aleatoriamente
+
             jugadorTurno = ttt_core.primerTurnoElegirJugador(jugadores)
             opcionDificultad = ttt_core.menu(dificultades)
+
             while resultado == "N/A":
                 linea()
                 print(tablero)
                 linea()
-                # Cuando se ha declarado, se resta 1 o se suma 1, en cuestión de quien
-                # haya sido el último jugador en tirar.
-                jugadorTurno = comprobarSiguienteTurno(jugadorTurno,jugadores)
+
+                jugadorTurno = comprobarSiguienteTurno(jugadorTurno, jugadores)
+
                 match jugadorTurno:
+                    # Turno del jugador humano
                     case 0:
                         ejeY = ttt_core.comprobarPosicion("Y")
                         ejeX = ttt_core.comprobarPosicion("X")
-                        tablero[ejeY,ejeX] = "O"
+
+                        while tablero[ejeY, ejeX] != 0:
+                            print("Error. Esa casilla ya está ocupada.")
+                            ejeY = ttt_core.comprobarPosicion("Y")
+                            ejeX = ttt_core.comprobarPosicion("X")
+
+                        tablero[ejeY, ejeX] = "O"
+
+                    # Turno IA
                     case 1:
                         probabilidad = ttt_core.probabilidadMax(opcionDificultad)
                         decisionFinal = ttt_core.calculoProbabilidad(probabilidad)
-                        casillasLibres = ttt_core.posicionesLibres()
+
+                        casillasLibres = ttt_core.posicionesLibres(tablero)
+
                         match decisionFinal:
                             case True:
-                                # Aquí se ejecuta el algoritmo minimax, un movimiento perfecto.
-                                ttt_core.algoritmoMinimax(tablero)
+                                # IA usa Minimax
+                                mov = ttt_core.mejorMovimientoMinimax(tablero)
+                                if mov:
+                                    fila, col = mov
+                                    tablero[fila, col] = "X"
                             case False:
-                                # Aqui se ejecuta un número de casilla aleatorio en el tablero
-                                ttt_core.posicionRandom(casillasLibres,tablero)
-                resultado = ttt_core.comprobarResultado(tablero,jugadorTurno,jugadores)
-        # Has salido del juego.
+                                # IA mueve aleatorio
+                                ttt_core.posicionRandom(casillasLibres, tablero)
+
+                resultado = ttt_core.comprobarResultado(tablero, jugadorTurno, jugadores)
+
+                # Has salido del juego.
         case 3:
             print("Has salido del juego.")
         case _:

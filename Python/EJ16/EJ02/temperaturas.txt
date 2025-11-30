@@ -1,0 +1,7 @@
+Lunes : 12.3
+Martes : 43.2
+Miércoles : 912.3
+Jueves : 239.2
+Viernes : 32.1
+Sábado : 2.1
+Domingo : -4.5

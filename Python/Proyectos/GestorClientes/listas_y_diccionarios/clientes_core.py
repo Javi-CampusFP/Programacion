@@ -267,12 +267,12 @@ def eliminar_cliente_dni(clientes):
                 # Si el usuario cancela la operación, se indica por pantalla
                 case "N":
                     print("Operación cancelada.")
-                    return False
+                    return clientes
                 case _:
                     print("Error. Cancelando operación por defecto.")
                     print(f"El valor '{respuesta}' no ha sido reconocido por el sistema.")
                     print("Recuerda en estas operaciones de importancía máxima, respetar las mayúsculas y las minúsculas ")
-                    return False
+                    return clientes
         contador = contador + 1
     # Si no se ha encontrado, entonces se avisa al usuario
     if not encontrado:

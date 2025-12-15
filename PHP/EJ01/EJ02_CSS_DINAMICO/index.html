@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="./procesar.php" method="post">
+        <label for="">Color de fondo</label>
+        <br>
+        <input type="color" name="color_elegido">
+        <br>
+        <label for="">Tamaño de letra</label>
+        <br>
+        <input type="number" name="size_letra">
+        <br>
+        <label for="">Texto del título</label>
+        <br>
+        <input type="text" name="titular">
+        <br>
+        <label for="">Alineación del título</label>
+        <br>
+        <select name="alineacion">
+            <option value="">-- Selecciona alineación --</option>
+            <option value="left">Izquierda</option>
+            <option value="center">Centro</option>
+            <option value="right">Derecha</option>
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

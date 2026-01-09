@@ -14,7 +14,7 @@
     foreach ($usuarios as $user){
         // Si en la posicion X tiene password X, 
         if ($user["usuario"] == $usuarioFormulario && $user["clave"] == $claveFormulario){
-            $encontrado = true;
+            $encontrado = true; // Cambiar encontrado a true
             $nombre_usuario = $user["usuario"];
         };
     };

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL CONSTRUCTOR DE PIZZAS</title>
+</head>
+<body>
+    <form action="./procesar.php" method="post" style="border-color: black;">
+        <label for="">Tamaño</label>
+        <br>
+        <label for="">Pizza mediana (10€)</label>
+        <input type="radio" value="mediana" name="pizza_tamano">
+        <br>
+        <br>
+        <label for="">Pizza pequeña (5€)</label>
+        <input type="radio" value="pequeña" name="pizza_tamano">
+        <br>
+        <br>
+        <label for="">Ingredientes</label>
+        <br>
+        <label for="">Champiñones</label>
+        <input type="checkbox" value="Champiñones" name="ingredientes[]">
+        <br>
+        <br>
+        <label for="">Jamón</label>
+        <input type="checkbox" value="Jamón" name="ingredientes[]">
+        <br>
+        <br>
+        <label for="">Queso</label>
+        <input type="checkbox" value="Queso" name="ingredientes[]">
+        <br>
+        <br>
+        <input type="submit" value="Solicitar">
+    </form>
+</body>
+</html>

@@ -7,34 +7,37 @@
 </head>
 <body>
     <?php
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
-    function comprobar_archivo($archivo) {
-        try {
-            if (!file_exists($archivo)) {
-                throw new Exception("El archivo no existe");
-                return false;
-            }
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
 
-            if (!is_readable($archivo)) {
-                throw new Exception("El archivo no puede ser leído por el programa");
-                return false;
+        function comprobar_archivo($archivo) { // Crear la función de comprobar si existe o si el archivo se puede leer
+            try {
+                if (!file_exists($archivo)) { // Si el archivo no existe, 
+                    throw new Exception("El archivo no existe"); // Exception 
+                }
+                if (!is_readable($archivo)) { // Si el archivo es leible
+                    throw new Exception("El archivo no puede ser leído por el programa"); // Exception
+                }
+                return true; // Devolver verdadero si todo lo demas no dio error
+            } catch (Exception $e) { // Para atrapar excepciones
+                echo "Error: " . $e->getMessage();
+                error_log(
+                    date("[Y-m-d H:i:s] ") . $e->getMessage() . PHP_EOL,
+                    3,
+                    "error.log" // Guardar el log en error.log
+                );
+                return false; // Devuelve false si fallo
             }
-        } 
-        catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-
-            error_log(
-                date("[Y-m-d H:i:s] ") . $e->getMessage() . PHP_EOL, 3, "error.log"
-            );
         }
-        return true;
-    }
-    $ruta = "notas.txt";
-    $sin_error = comprobar_archivo($ruta);
-    if ($sin_error){
-        
-    }
+        $ruta = "notas.txt"; // La ruta del archivo 
+        if (comprobar_archivo($ruta)) { // Si la función da true entonces
+            $archivo = fopen($ruta, "r"); // Abrir el archivo
+            while (($linea = fgets($archivo)) !== false) { // Mientras haya lineas
+                echo htmlspecialchars($linea) . "<br>"; // Escribir en el html el contenido
+            }
+            fclose($archivo); // Cerrar el archivo
+        }
     ?>
+
 </body>
 </html>

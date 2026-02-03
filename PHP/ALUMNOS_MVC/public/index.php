@@ -20,7 +20,7 @@ switch ($accion){
         $controlador->guardar();
         break;
     case 'borrar':
-        $controlador->borrar();
+        $controlador->borrarPorId();
         break;
     default:
         echo "Acción no válida.";

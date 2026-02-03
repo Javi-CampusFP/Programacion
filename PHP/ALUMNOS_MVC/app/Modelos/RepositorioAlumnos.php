@@ -1,15 +1,15 @@
 <?php
-require_once __DIR__ . 'ConexionDB.php';
-require_once __DIR__ . 'Alumno.php';
+require_once __DIR__ . '/ConexionDB.php';
+require_once __DIR__ . '/Alumno.php';
 class RepositorioAlumnos{
     private $conexion;
     function __construct(){
-        self::$conexion->ConexionDB::obtenerConexion;
+        $this->conexion = ConexionDB::obtenerConexion();
     }
     // create
     function insertar($alumno){
         // Insert into sentencia sql. Los ':' se ponen porque luego se van a sanitizar los caracteres
-        $sql = "INSERT INTO alumnos (nombre,email,edad,fecha_creacion) VALUES :nombre, :email, :edad, :fecha";
+        $sql = "INSERT INTO alumnos (nombre,email,edad,fecha_creacion) VALUES (:nombre, :email, :edad, :fecha)";
         // Parece ser que stmt es una variable que hace PDO cuando se ejecuta. No hace falta definirla.
         $stmt = $this->conexion->prepare($sql);
         $stmt->execute([

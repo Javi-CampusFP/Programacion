@@ -6,7 +6,7 @@
                 $host = "localhost";
                 $baseDatos = "centro";
                 $usuario = "root";
-                $password = "";
+                $password = "curso";
                 try {
                     // El data source name tiene que tener esta sintaxis
                     $dsn = "mysql:host=$host;dbname=$baseDatos;charset=utf8mb4";

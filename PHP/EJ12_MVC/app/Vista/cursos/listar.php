@@ -11,17 +11,19 @@
     <table>
       <thead>
         <tr>
-          <th>Fecha</th>
+          <th>Id</th>
           <th>Nombre</th>
-          <th>Horas</th>
+          <th>Email</th>
+          <th>Fecha de creación</th>
         </tr>
       </thead>
       <tbody>
         <?php foreach ($cursos as $c): ?>
           <tr>
-            <td><?php echo htmlspecialchars($c->fechaCreacion); ?></td>
+            <td><?php echo htmlspecialchars($c->id); ?></td>
             <td><?php echo htmlspecialchars($c->nombre); ?></td>
-            <td><?php echo htmlspecialchars($c->horas); ?></td>
+            <td><?php echo htmlspecialchars($c->email); ?></td>
+            <td><?php echo htmlspecialchars($c->fecha); ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>

@@ -1,4 +1,5 @@
 <?php 
+// app/Modelos/ConexionDB.php
 class ConexionDB{
     private static $conexion = null;
 

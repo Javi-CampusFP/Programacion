@@ -10,7 +10,7 @@ class ControladorAlumnos{
             // Obtiene los datos del repositorio 
             $datos = $this->repositorio->obtenerTodos();
             // Pasa el array y la vista correspondiente
-            $this->renderizar("alumnos/listar", $datos);
+            $this->renderizar("alumnos/listar", ['alumnos' => $datos]);
         } catch(Exception $error){
             $this->registrarError("No se pudo listar a los alumnos.", $error);
             $this->renderizar("alumnos/listar", [

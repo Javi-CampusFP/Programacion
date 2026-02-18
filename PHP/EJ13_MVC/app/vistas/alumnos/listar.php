@@ -1,7 +1,3 @@
-<?php if (!empty($error)): ?>
-  <div class="error"><?php echo htmlspecialchars($error); ?></div>
-<?php endif; ?>
-
 <div class="tarjeta">
   <h2>Listado de alumnos</h2>
 
@@ -13,15 +9,14 @@
         <tr>
           <th>Fecha</th>
           <th>Nombre</th>
-          <th>Horas</th>
-        </tr>
+          <th>Email</th> </tr>
       </thead>
       <tbody>
-        <?php foreach ($cursos as $c): ?>
+        <?php foreach ($alumnos as $alumno): ?>
           <tr>
-            <td><?php echo htmlspecialchars($c->fechaCreacion); ?></td>
-            <td><?php echo htmlspecialchars($c->nombre); ?></td>
-            <td><?php echo htmlspecialchars($c->horas); ?></td>
+            <td><?php echo htmlspecialchars($alumno->fechaCreacion); ?></td>
+            <td><?php echo htmlspecialchars($alumno->nombre); ?></td>
+            <td><?php echo htmlspecialchars($alumno->email); ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>

@@ -1,0 +1,19 @@
+2026-02-18 23:00:59 | ACTUALIZAR | ID del alumno no proporcionado en el formulario.2026-02-18 23:35:20 | ACTUALIZAR | Exception: Alumno no encontrado. in /home/flami/Programacion/PHP/EJ16_MVC/app/Controladores/ControladorAlumno.php:27
+Stack trace:
+#0 /home/flami/Programacion/PHP/EJ16_MVC/public/index.php(19): ControladorAlumno->editar()
+#1 {main}2026-02-18 23:35:31 | ACTUALIZAR | Exception: Alumno no encontrado. in /home/flami/Programacion/PHP/EJ16_MVC/app/Controladores/ControladorAlumno.php:27
+Stack trace:
+#0 /home/flami/Programacion/PHP/EJ16_MVC/public/index.php(19): ControladorAlumno->editar()
+#1 {main}2026-02-18 23:46:48 | BD CONEXIÓN | PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/flami/Programacion/PHP/EJ16_MVC/app/Modelo/ConexionDB.php:16
+Stack trace:
+#0 /home/flami/Programacion/PHP/EJ16_MVC/app/Modelo/ConexionDB.php(16): PDO->__construct()
+#1 /home/flami/Programacion/PHP/EJ16_MVC/app/Modelo/RepositorioAlumnos.php(9): ConexionDB::obtenerConexion()
+#2 /home/flami/Programacion/PHP/EJ16_MVC/app/Controladores/ControladorAlumno.php(8): RepositorioAlumnos->__construct()
+#3 /home/flami/Programacion/PHP/EJ16_MVC/public/index.php(8): ControladorAlumno->__construct()
+#4 {main}2026-02-18 23:47:16 | BD CONEXIÓN | PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/flami/Programacion/PHP/EJ16_MVC/app/Modelo/ConexionDB.php:16
+Stack trace:
+#0 /home/flami/Programacion/PHP/EJ16_MVC/app/Modelo/ConexionDB.php(16): PDO->__construct()
+#1 /home/flami/Programacion/PHP/EJ16_MVC/app/Modelo/RepositorioAlumnos.php(9): ConexionDB::obtenerConexion()
+#2 /home/flami/Programacion/PHP/EJ16_MVC/app/Controladores/ControladorAlumno.php(8): RepositorioAlumnos->__construct()
+#3 /home/flami/Programacion/PHP/EJ16_MVC/public/index.php(8): ControladorAlumno->__construct()
+#4 {main}

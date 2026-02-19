@@ -9,7 +9,7 @@ class ConexionDB{
             $host = "localhost";
             $bd = "centro";
             $user = "root";
-            $password = "";
+            $password = "curso";
             // Intenta realizar la conexión
             try {
                 $dsn = "mysql:host=$host;dbname=$bd;charset=utf8mb4";

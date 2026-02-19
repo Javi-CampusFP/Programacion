@@ -20,22 +20,39 @@ class ControladorAlumno{
             return;
         }
     }
-    // Función para borrar a un alumno
-    public function borrar(){
-        // El ID del alumno a borrar
-        $id = $_GET['id'] ?? '';
-        if (!ctype_digit($id)){
-            throw new Exception("Error, el ID debe de ser numérico");
-        }
-        // Intenta borrarlo, si hay algún error, se avisa al usuario y se registra el error
+    // Esta función edita los datos 
+    public function editar(){
         try {
-            self::$repositorio->borrar($id);
+            // Obtiene los datos del alumno
+            $alumnoEditar = self::$repositorio->obtenerPorId($_POST['id']);
+            if (empty($alumnoEditar)){
+                throw new Exception("Alumno no encontrado.");
+            }
+            // Actualiza los datos del alumno nuevo 
+            $alumno = new Alumno(
+                $_POST['id'],
+                $_POST['nombre'],
+                $_POST['email'],
+                $_POST['edad'],
+                $alumnoEditar->fecha_creacion
+            );
+            // Reemplaza los datos del alumno antiguo
+            self::$repositorio->actualizar($alumno);
+            // Redirige a la vista de 'exito'.
             header("Location: index.php?accion=exito");
+            return;
+            // Si hay algun error se muestra un mensaje amigable, se registra y se cierra.
         } catch (Exception $error){
-            $this->registrarError("BORRAR", $error);
-            echo "Hubo un error al borrar al alumno.";
-            return;    
+            echo "Hubo un error al intentar actualizar a los alumnos.";
+            $this->registrarError("ACTUALIZAR",$error);
+            return;
         }
+    }
+    // Esta función es para acceder al formulario 
+    public function formularioEditar(){
+        $id = $_GET['id'] ?? null;
+        $alumno = self::$repositorio->obtenerPorId($id);
+        $this->renderizar("alumnos/actualizar", ['alumno' => $alumno]);
     }
     // Esto es para que si se borra correctamente, se le indica al usuario
     public function exito(){
